@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "wordpress-chart.fullname" . | quote }}
+  labels:
+{{- include "wordpress-chart.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+{{- include "wordpress-chart.selectorLabels" . | nindent 4 }}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+spec:
+  selector:
+    app: mysql
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+  type: ClusterIP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: {{ .Values.service.type }}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "wordpress-chart.fullname" . }}
+  labels:
+    {{- include "wordpress-chart.labels" . | nindent 4 }}
+spec:
+  type: NodePort  # Change to NodePort
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "wordpress-chart.selectorLabels" . | nindent 4 }}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+spec:
+  type: NodePort  # Change to NodePort
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  selector:
+    app: nginx
