@@ -81,7 +81,7 @@ Apply the ConfigMap:
 kubectl apply -f prometheus-config.yaml -n monitoring
 ```
 
-### 3. Configure Grafana Dashboards and Alerts
+### 3. Configure Grafana Dashboards 
 
 #### Add Prometheus Data Source in Grafana
 
@@ -99,7 +99,7 @@ Navigate to Create > Import.
 Enter the dashboard ID for the desired dashboard.
 Click Load, then select the Prometheus data source you added earlier, and click Import.
 
-#### Create Alerting Rules
+### 4. Create Alerting Rules and Alerts
 Create an alerts.yaml file:
 
 Create a file named alerts.yaml
@@ -110,7 +110,7 @@ Apply the alerting rules:
 kubectl apply -f alerts.yaml -n monitoring
 ```
 
-### 4. Document Metrics
+### 5. Document Metrics
 
 #### Pod CPU Utilization
 
@@ -130,7 +130,7 @@ Metric Name: nginx_ingress_controller_requests
 Description: Total number of 5xx (server error) HTTP requests handled by the Nginx ingress controller.
 Query: sum(rate(nginx_ingress_controller_requests{namespace="default", service="nginx", status=~"5.."}[1m]))
 
-### 5. Verify Setup
+### 6. Verify Setup
 
 Access Grafana: Ensure you can view the dashboards and the metrics are being populated.
 Trigger Alerts: Test alerting by creating conditions that match your alert rules.
