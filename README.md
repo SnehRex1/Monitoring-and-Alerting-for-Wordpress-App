@@ -115,19 +115,25 @@ kubectl apply -f alerts.yaml -n monitoring
 #### Pod CPU Utilization
 
 Metric Name: container_cpu_usage_seconds_total
+
 Description: Total CPU time consumed by the container in seconds.
+
 Query: rate(container_cpu_usage_seconds_total{namespace="default", pod="my-release-wordpress-chart"}[1m])
 
 #### Total Request Count for Nginx
 
 Metric Name: nginx_ingress_controller_requests
+
 Description: Total number of HTTP requests handled by the Nginx ingress controller.
+
 Query: sum(rate(nginx_ingress_controller_requests{namespace="default", service="nginx"}[1m]))
 
 #### Total 5xx Requests for Nginx
 
 Metric Name: nginx_ingress_controller_requests
+
 Description: Total number of 5xx (server error) HTTP requests handled by the Nginx ingress controller.
+
 Query: sum(rate(nginx_ingress_controller_requests{namespace="default", service="nginx", status=~"5.."}[1m]))
 
 ### 6. Verify Setup
