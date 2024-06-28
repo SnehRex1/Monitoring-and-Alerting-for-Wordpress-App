@@ -87,8 +87,11 @@ kubectl apply -f prometheus-config.yaml -n monitoring
 
 Open Grafana in your browser.
 Navigate to Configuration > Data Sources.
+
 Click Add data source and select Prometheus.
+
 Set the URL to http://prometheus-server.monitoring.svc.cluster.local:80.
+
 Click Save & Test to ensure Grafana can connect to Prometheus.
 
 #### Import Dashboards
@@ -96,7 +99,9 @@ Click Save & Test to ensure Grafana can connect to Prometheus.
 Grafana provides pre-built dashboards that can be used for monitoring.
 
 Navigate to Create > Import.
+
 Enter the dashboard ID for the desired dashboard.
+
 Click Load, then select the Prometheus data source you added earlier, and click Import.
 
 ### 4. Create Alerting Rules and Alerts
